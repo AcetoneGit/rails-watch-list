@@ -1,0 +1,63 @@
+<!-- app/views/lists/show.html.erb -->
+
+<div class="container">
+  <h1><%= @list.name %></h1>
+
+  <!-- Section d'ajout de film via bookmark -->
+<%= link_to 'Ajouter un film', new_list_bookmark_path(list_id: @list.id), class: 'btn btn-primary' %>
+  <!-- Section d'affichage des films -->
+  <div class="movie-list">
+    <% if @list.bookmarks.any? %>
+      <div class="movies-grid">
+        <% @list.bookmarks.each do |bookmark| %>
+          <div class="movie-card">
+            <div class="card-inner">
+              <!-- Face avant de la carte -->
+              <div class="card-front">
+                <div class="poster-wrapper">
+                  <img src="<%= "https://image.tmdb.org/t/p/w500#{bookmark.movie.poster_url}" %>" alt="Affiche du film <%= bookmark.movie.title %>" class="poster">
+                  <div class="overlay">
+                    <h2 class="movie-title"><%= bookmark.movie.title %></h2>
+                    <div class="rating">
+
+                      <div class="rate-value"><%= bookmark.movie.rating %>/10</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Face arrière de la carte -->
+              <div class="card-back">
+                <h3 class="back-header">Synopsis</h3>
+                <p class="synopsis"><%= bookmark.movie.overview %></p>
+
+                <!-- Note du film -->
+                <div class="rating-display">
+                  <div class="rating-score">
+                    <div class="score-number"><%= bookmark.movie.rating.round(1) %></div>
+                    <div class="score-max">/10</div>
+                  </div>
+
+                </div>
+
+                <!-- Commentaire et option de suppression -->
+                <div class="bookmark-comment">
+                  <p><%= bookmark.comment %></p>
+             <%= link_to bookmark_path(bookmark),
+            data: { turbo_method: :delete, turbo_confirm: "Êtes-vous sûr de vouloir supprimer ce film de votre liste ?" },
+            class: "delete-movie" do %>
+  <i class="fas fa-trash"></i>
+<% end %>
+                </div>
+              </div>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="empty-list">
+        <p>Aucun film dans cette liste pour le moment. Ajoutez-en un!</p>
+      </div>
+    <% end %>
+  </div>
+</div>

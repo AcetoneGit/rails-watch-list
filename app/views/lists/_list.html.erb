@@ -1,0 +1,20 @@
+<div class="amazing scaleDown">
+  <div class="grid grid-cols-3 grid-rows-3">
+    <% lists.each do |list| %>
+      <div class="ag-courses_item">
+        <%= link_to list_path(list), class: "ag-courses-item_link" do %>
+          <div class="ag-courses-item_bg"></div>
+          <div class="ag-courses-item_title">
+            <%= list.name %>
+          </div>
+          <div class="ag-courses-item_date-box">
+            Nombre de films:
+            <span class="ag-courses-item_date">
+              <%= list.movies.count %>
+            </span>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

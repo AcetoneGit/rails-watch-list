@@ -1,0 +1,14 @@
+<h1 class="text-center">NEW BOOKMARK</h1>
+<div>
+<%= simple_form_for [@list, @bookmark] do |f| %>
+ <div class="form-group">
+    <%= f.input :comment, label: "Commentaire", placeholder: "Entrez votre commentaire ici", input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.association :movie, label: "Film", input_html: { class: 'form-control' } %>
+  </div>
+  <div class="form-group">
+    <%= f.button :submit, "Ajouter le commentaire", class: 'btn btn-primary' %>
+  </div>
+<% end %>
+</div>
